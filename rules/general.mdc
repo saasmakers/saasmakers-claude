@@ -20,6 +20,12 @@ alwaysApply: true
 
 - Prefer ESM `import`/`export` (root `"type": "module"` in [package.json](package.json)).
 - Declare shared vendor types in `types/global.d.ts` as `type X = import('…').X`. Reference globally, don't re-import.
+- App-local `type` / `interface` live in ambient `*.d.ts` under `types/`:
+  - Nuxt web: `apps/web/app/types/` (e.g. `tasks.d.ts`)
+  - Adonis API: `apps/api/types/` (e.g. `trophies.d.ts`, `performance.d.ts`)
+- Define them once in `declare global { … }` — do not export them from implementation `.ts` / `.vue` files; use them without importing.
+- Prefer domain files (`tasks.d.ts`, `habits.d.ts`, `trophies.d.ts`) over dumping everything in `global.d.ts`. Keep `global.d.ts` for cross-cutting types and vendor aliases.
+- Exceptions that may stay next to implementation: `typeof`-derived aliases (e.g. `keyof typeof icons`), and Vine `ContractIsInSync` asserts colocated with validators.
 
 ### Tooling
 
