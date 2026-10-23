@@ -36,6 +36,12 @@
 - **Cross-repo ops: sequential only.** Run `pnpm install`, `git push`, etc. one turborepo at a time — never in parallel (port conflicts, `ENOMEM`, flaky lockfiles).
 - Do not open a browser to verify changes unless asked.
 
+### Mobile builds
+
+- "Build iOS" (or Android) means: run `pnpm build:ios` (`build:android`) in the app folder inside the devcontainer (`docker exec -w /workspaces/projects/<repo>/apps/web …`). It generates the static site with `.env.production` (published `@saasmakers/*`, not the local kit) and runs `cap sync`.
+- The devcontainer has no CocoaPods, so `cap sync ios` skips `pod install`. On the host, run `pod install` in `apps/web/ios/App` only when `Podfile.lock` and `Pods/Manifest.lock` differ.
+- Check that iOS compiles on the host: `xcodebuild -workspace App.xcworkspace -scheme App -configuration Debug -sdk iphonesimulator -destination 'generic/platform=iOS Simulator' -derivedDataPath <scratchpad> build` in `apps/web/ios/App`. Device builds and App Store archives go through Xcode with the user's signing: don't attempt them.
+
 ### Git
 
 - **Never commit, push or publish** unless the user explicitly asks.
