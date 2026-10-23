@@ -39,6 +39,9 @@
 ### Git
 
 - **Never commit, push or publish** unless the user explicitly asks.
+  - The user reads the diff before every commit. A request to make changes is not a request to commit, even when the previous task ended with one.
+  - Do not put commit, push or publish steps in a task plan the user did not ask for. Stop after the checks and ask.
+  - Each go-ahead covers only the commit or push it was given for. Commit and push are separate go-aheads.
 - Commit inside the devcontainer: the `commit-msg` hook runs commitlint with `pnpm`.
 - Push from the host: the devcontainer has no SSH access to GitHub. Run the `pre-push` checks (`lefthook.yml`) in the devcontainer first, then `LEFTHOOK=0 git push`.
 - Allowed scopes: `scope-enum` rule in `@saasmakers/config` (`commitlint.js` export).
