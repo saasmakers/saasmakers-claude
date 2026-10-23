@@ -12,7 +12,7 @@ paths:
 
 ### Vitest (repo root)
 
-- Vitest globals: `clearMocks`, `mockReset`, `restoreMocks` are all `true`. Never add manual mock cleanup in `beforeEach`/`afterEach`.
+- Check the root `vitest.config.ts` before adding mock cleanup: skip manual cleanup in `beforeEach`/`afterEach` for what `clearMocks` / `mockReset` / `restoreMocks` already do.
 
 ### Structure
 

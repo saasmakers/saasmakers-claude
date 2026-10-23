@@ -5,7 +5,7 @@ paths:
 
 ### Things to know
 
-- I never add the `down` function in my migration files because I never use it.
+- Never write the `down` function in migrations (rollbacks are never run).
 - The database is PostgreSQL. Columns are nullable by default, do not add `.nullable()` or `.defaultTo(null)`.
 - PostgreSQL does not support `.after('column_name')`, never use it in migrations.
 
