@@ -1,6 +1,6 @@
 ---
-description: Temporal workers, workflows bundle, and global types.
-globs: apps/temporal/**
+paths:
+  - "apps/temporal/**"
 ---
 
 ### Workers and bundles

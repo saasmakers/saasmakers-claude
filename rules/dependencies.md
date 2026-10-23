@@ -1,6 +1,6 @@
 ---
-description: Package.json dependency conventions.
-globs: **/package.json
+paths:
+  - "**/package.json"
 ---
 
 ### Dependency version conventions

@@ -1,6 +1,7 @@
 ---
-description: Testing naming and ordering conventions.
-globs: **/*test.*, **/*spec.*
+paths:
+  - "**/*test.*"
+  - "**/*spec.*"
 ---
 
 ### Naming

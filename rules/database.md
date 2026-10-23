@@ -1,6 +1,6 @@
 ---
-description: Database conventions for Adonis.
-globs: apps/api/database/migrations/**
+paths:
+  - "apps/api/database/migrations/**"
 ---
 
 ### Things to know

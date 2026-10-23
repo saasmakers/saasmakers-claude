@@ -1,8 +1,3 @@
----
-description: General conventions, monorepo tooling, comments, naming, Zod.
-alwaysApply: true
----
-
 ### Good practices
 
 - Always write comments in English.
@@ -35,7 +30,7 @@ alwaysApply: true
 - Target one package: `pnpm --filter @saasmakers/<name> <script>`.
 - Agent shells may use an older Node than the devcontainer; if `node -v` ≠ root `engines.node`, prepend `export PATH="/usr/local/share/nvm/versions/node/v24.14.1/bin:$PATH"` before `pnpm lint`, `pnpm typecheck`, or `pnpm test`.
 - **Cross-repo ops: sequential only.** Run `pnpm install`, `git push`, etc. one turborepo at a time — never in parallel (port conflicts, `ENOMEM`, flaky lockfiles).
-- Do not open the Cursor browser or verify changes in it.
+- Do not open a browser to verify changes.
 
 ### Commits
 
@@ -44,7 +39,7 @@ alwaysApply: true
 
 ### Publishing `@saasmakers/*`
 
-- **Never publish** unless the user explicitly asks. See `git-safety.mdc`. One changeset per release (batch related changes). Never `npm publish` from `packages/*` — use changesets from `saasmakers-turborepo` root; otherwise `catalog:` stays in the published tarball.
+- **Never publish** unless the user explicitly asks. One changeset per release (batch related changes). Never `npm publish` from `packages/*` — use changesets from `saasmakers-turborepo` root; otherwise `catalog:` stays in the published tarball.
 - Default bump in `.changeset/*.md`: `patch` (e.g. `"@saasmakers/ui": patch`). Use `minor` or `major` only when the user explicitly asks.
 - Flow: `.changeset/*.md` → `pnpm exec changeset version` → `CI=true pnpm exec changeset publish`.
 - Before bumping a consumer catalog: verify the release is installable — `curl -sfL "$(npm view @saasmakers/<pkg>@<version> dist.tarball)" -o /dev/null` must exit 0 (`npm view … version` alone can list versions that are not yet downloadable). Retry 404s every ~30s for up to 5 minutes (npm propagation). Do **not** bump or publish a new version just because of a temporary 404 — wait until that same version’s tarball succeeds. If it stays broken (e.g. npm 409 “previously staged”), stop and ask the user; never blind version bumps. `npm view … dependencies` must not contain `catalog:`.

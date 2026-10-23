@@ -1,6 +1,6 @@
 ---
-description: Adonis API request validation (Vine).
-globs: apps/api/**
+paths:
+  - "apps/api/**"
 ---
 
 ### Validators
