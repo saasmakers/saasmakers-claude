@@ -7,7 +7,7 @@ paths:
 
 ### Motion tokens
 
-- Durations come from `@saasmakers/ui`: `duration-fast` (150ms), `duration-base` (200ms, default), `duration-slow` (300ms). Never raw `duration-<ms>` (enforced by `saasmakers/vue-motion-tokens`).
+- Durations come from `@saasmakers/ui`: `duration-fast` (150ms), `duration-base` (200ms, default), `duration-slow` (300ms). Never raw `duration-<ms>` (enforced by `saasmakers/vue-format-template`).
 - Easing is global (`theme.easing.DEFAULT`, ease-out). Don't add `ease-*` classes.
 - Bare `transition` / `transition-colors` already use `duration-base`; add a token only to change it.
 - Keep `motion-reduce:duration-0` next to `motion-reduce:transition-none` on Vue `<Transition>` classes: Vue reads `transition-duration` to time leave/enter.
