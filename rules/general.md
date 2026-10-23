@@ -6,8 +6,7 @@
 - Use `undefined` internally. Use `null` only when reflecting external sources (DB, JSON, API schemas).
 - Prefer `field?: T` over `field: T | null | undefined`. Use `| null` only to mirror external schemas.
 - At boundaries, normalize external `null` with `value ?? undefined`.
-- Use `camelCase` for all variables, including constants and exported arrays/objects (write `parkings`, not `PARKINGS`). No `SCREAMING_SNAKE_CASE`.
-- Exceptions: Zod schemas (PascalCase + `Schema`), types/interfaces (PascalCase).
+- Use `camelCase` for all variables, including constants and exported arrays/objects (write `parkings`, not `PARKINGS`). No `SCREAMING_SNAKE_CASE`, except Zod schemas (PascalCase + `Schema`) and types/interfaces (PascalCase).
 - Name model instances after the entity (`apexDomain`), not ORM-flavored (`apexDomainRow`).
 
 ### Types
@@ -27,7 +26,7 @@
 
 ### Tooling
 
-- Use `pnpm` at repo root; run tasks with `turbo run <task>` (not npm/yarn).
+- Use `pnpm` (not npm/yarn). Root scripts (`pnpm lint|typecheck|test`) run turbo.
 - Workspace layout: `apps/*`, `packages/*`, `packages/helpers/*` (see `pnpm-workspace.yaml`).
 - Package scope is the repo's: `@saasmakers/*`, `@companies/*` or `@resilienceclub/*`. Import from the package over deep relative paths when one exists.
 - Target one package: `pnpm --filter @<scope>/<name> <script>`.
@@ -48,6 +47,7 @@
   - The user reads the diff before every commit. A request to make changes is not a request to commit, even when the previous task ended with one.
   - Do not put commit, push or publish steps in a task plan the user did not ask for. Stop after the checks and ask.
   - Each go-ahead covers only the commit or push it was given for. Commit and push are separate go-aheads.
-- Commit inside the devcontainer: the `commit-msg` hook runs commitlint with `pnpm`.
+- Commit inside the devcontainer: the `commit-msg` hook runs commitlint with `pnpm`. It has no git identity, so pass the host one (`git config user.name` / `user.email`): `git -c user.name=… -c user.email=… commit`, or `-e GIT_AUTHOR_NAME -e GIT_AUTHOR_EMAIL -e GIT_COMMITTER_NAME -e GIT_COMMITTER_EMAIL` to `docker exec` for tools that commit by themselves.
 - Push from the host: the devcontainer has no SSH access to GitHub. Run the `pre-push` checks (`lefthook.yml`) in the devcontainer first, then `LEFTHOOK=0 git push`.
 - Allowed scopes: `scope-enum` rule in `@saasmakers/config` (`commitlint.js` export).
+- To publish a package, read `rules/publishing.md` first.
