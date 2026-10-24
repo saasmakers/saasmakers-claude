@@ -33,7 +33,7 @@
 - The macOS host has no Node: run `pnpm` in the devcontainer with `docker exec -w /workspaces/projects/<repo> projects-devcontainer-1 pnpm <script>`.
 - In `saasmakers-turborepo`, `@saasmakers/eslint` is an injected copy (`node_modules/.pnpm/@saasmakers+eslint@file+packages+eslint*`), not a symlink: after changing it, run `pnpm --filter @saasmakers/eslint build` then `pnpm install --frozen-lockfile` before linting, or lint (pre-push included) runs the stale rules.
 - **Cross-repo ops: sequential only.** Run `pnpm install`, `git push`, etc. one turborepo at a time — never in parallel (port conflicts, `ENOMEM`, flaky lockfiles).
-- Do not open a browser to verify changes unless asked.
+- Claude rules live in the `saasmakers-claude` repo at the workspace root. Edit them there, never in a repo's `.claude/` folder: those are submodule checkouts of it, updated by bumping the submodule.
 
 ### Mobile builds
 
