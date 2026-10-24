@@ -36,6 +36,12 @@
 - **Cross-repo ops: sequential only.** Run `pnpm install`, `git push`, etc. one turborepo at a time — never in parallel (port conflicts, `ENOMEM`, flaky lockfiles).
 - Claude rules live in the `saasmakers-claude` repo at the workspace root. Edit them there, never in a repo's `.claude/` folder: those are submodule checkouts of it, updated by bumping the submodule.
 
+### Browser testing
+
+- Every project uses the same local test account, `test@claude.ai`, created by the development-only seeder `apps/api/database/seeders/00_UserSeeder.ts` (password in the seeder). Sign in with it on the local web app only (`NUXT_PUBLIC_SITE_URL` in `apps/web/.env`), never on staging or production.
+- If the account is missing, run `node ace db:seed --files database/seeders/00_UserSeeder.ts` in `apps/api` inside the devcontainer.
+- Local `.env` files use Cloudflare's Turnstile test keys, so the captcha passes on its own.
+
 ### Mobile builds
 
 - "Build iOS" (or Android) means: run `pnpm build:ios` (`build:android`) in the app folder inside the devcontainer (`docker exec -w /workspaces/projects/<repo>/apps/web …`). It generates the static site with `.env.production` (published `@saasmakers/*`, not the local kit) and runs `cap sync`.
