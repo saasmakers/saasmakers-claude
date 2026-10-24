@@ -4,6 +4,11 @@ paths:
   - "**/*.css"
 ---
 
+### Fields
+
+- Uppercase by default (an `uppercase` prop defaulting to `true`, like `FieldSteps`), for labels, chips and toggles.
+- Groups of toggles: native `<button>`s, each reachable with Tab. No roving tabindex or arrow-only navigation.
+
 ### Motion tokens
 
 - Use `duration-fast|base|slow` (150/250/500ms, default `base`) and the global ease-out. No raw `duration-<ms>` or `ease-*` (lint enforces it).

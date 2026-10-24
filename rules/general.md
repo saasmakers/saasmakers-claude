@@ -8,6 +8,7 @@
 - At boundaries, normalize external `null` with `value ?? undefined`.
 - Use `camelCase` for all variables, including constants and exported arrays/objects (write `parkings`, not `PARKINGS`). No `SCREAMING_SNAKE_CASE`, except Zod schemas (PascalCase + `Schema`) and types/interfaces (PascalCase).
 - Name model instances after the entity (`apexDomain`), not ORM-flavored (`apexDomainRow`).
+- Edit `.vue` templates with the Edit tool, not regex or Python scripts: a leftover `>` or attribute renders as text, and lint does not catch it.
 
 ### Types
 

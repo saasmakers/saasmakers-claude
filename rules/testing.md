@@ -14,6 +14,10 @@ paths:
 
 - Check the root `vitest.config.ts` before adding mock cleanup: skip manual cleanup in `beforeEach`/`afterEach` for what `clearMocks` / `mockReset` / `restoreMocks` already do.
 
+### Japa (Adonis API)
+
+- Run one spec file from `apps/api`: `node ace test app --files "controllers/HabitsController"` (suite name first, path without `app/` or `.spec.ts`).
+
 ### Structure
 
 - One top-level `describe` per file, named after the implementation basename. No nested `describe` per export.
