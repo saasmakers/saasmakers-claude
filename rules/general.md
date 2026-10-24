@@ -29,7 +29,7 @@
 
 - Use `pnpm` (not npm/yarn). Root scripts (`pnpm lint|typecheck|test`) run turbo.
 - Workspace layout: `apps/*`, `packages/*`, `packages/helpers/*` (see `pnpm-workspace.yaml`).
-- Package scope is the repo's: `@saasmakers/*`, `@companies/*` or `@resilienceclub/*`. Import from the package over deep relative paths when one exists.
+- Package scope is the repo's, as in its root `package.json` `name` (`@<scope>/turborepo`); the shared kit is `@saasmakers/*`. Import from the package over deep relative paths when one exists.
 - Target one package: `pnpm --filter @<scope>/<name> <script>`.
 - The macOS host has no Node: run `pnpm` in the devcontainer with `docker exec -w /workspaces/projects/<repo> projects-devcontainer-1 pnpm <script>`.
 - In `saasmakers-turborepo`, `@saasmakers/eslint` is an injected copy (`node_modules/.pnpm/@saasmakers+eslint@file+packages+eslint*`), not a symlink: after changing it, run `pnpm --filter @saasmakers/eslint build` then `pnpm install --frozen-lockfile` before linting, or lint (pre-push included) runs the stale rules.
