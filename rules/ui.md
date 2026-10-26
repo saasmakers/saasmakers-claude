@@ -8,25 +8,13 @@ paths:
 
 - Uppercase by default (an `uppercase` prop defaulting to `true`, like `FieldSteps`), for labels, chips and toggles.
 - Groups of toggles: native `<button>`s, each reachable with Tab. No roving tabindex or arrow-only navigation.
+- Don't pass a display or position class (`hidden`, `flex`, `absolute`…) to a component whose root sets its own: which one wins depends on CSS order. Use `v-show` or a wrapper.
 
-### Motion tokens
+### Tokens
 
-- Use `duration-fast|base|slow` (150/250/500ms, default `base`) and the global ease-out. No raw `duration-<ms>` or `ease-*` (lint enforces it).
-- Keep `motion-reduce:duration-0` next to `motion-reduce:transition-none` on `<Transition>`: Vue times enter/leave from it.
-- Plain CSS: `var(--duration-*)` / `var(--easing)`. motion-v: `fadeIn`… or `motionDurations`. Values live in `ui/app/assets/styles/motion.css` and `ui/app/tokens/motion.ts`: keep both in sync.
+Each token lives in `ui/app/tokens/<name>.ts` and `ui/app/assets/styles/<name>.css` (change both); plain CSS uses `var(--<name>-*)`. Raw values are lint errors, except spacing.
 
-### Stacking tokens
-
-- Use `z-raised|dock|overlay|popover|toast|splash` (10/50/60/70/80/9999). No raw `z-<n>` or `z-[…]` (lint enforces it; `z-0` allowed). In TS use `zIndices` from `ui/app/tokens/stacking.ts`.
-
-### Radius tokens
-
-- Use `rounded-tag|inner|control|card|dialog` (4/6/8/12/16px): tags and kbd, targets inside a control, buttons and fields, cards and bordered blocks, modal and sheet. Sides work (`rounded-t-dialog`). `rounded-full` / `rounded-none` stay. No raw `rounded`, `rounded-<size>` or `rounded-[…]` (lint enforces it).
-- Nested radii stay concentric: an element inside a `control` with little padding uses `inner`.
-- Plain CSS: `var(--radius-*)`. Values live in `ui/app/assets/styles/radius.css` and `ui/app/tokens/radius.ts`: keep both in sync.
-
-### Spacing tokens
-
-- Vertical stacks of fields and blocks use `gap-stack` (16px). No raw `gap-<n>` or `space-y-<n>` between stacked fields; a row's horizontal `gap-2` stays.
-- `LayoutBottomSheet` lays out its default slot with `gap-stack`: pass fields as direct children (wrap them in `<template v-if>`, not a `<div class="flex flex-col gap-…">`). A group that needs its own wrapper (a ref, a motion) uses `flex flex-col gap-stack` inside.
-- Plain CSS: `var(--spacing-stack)`. Values live in `ui/app/assets/styles/spacing.css` and `ui/app/tokens/spacing.ts`: keep both in sync.
+- Motion: `duration-fast|base|slow` (150/250/500ms) and the global ease-out. On `<Transition>`, keep `motion-reduce:duration-0` next to `motion-reduce:transition-none` (Vue times enter/leave from it). motion-v: `fadeIn`… or `motionDurations`.
+- Stacking: `z-raised|dock|overlay|popover|toast|splash` (`z-0` allowed). In TS: `zIndices`.
+- Radius: `rounded-tag|inner|control|card|dialog` (4–16px) for tags, targets inside a control, buttons and fields, cards, modals and sheets. Sides work (`rounded-t-dialog`); `rounded-full|none` stay. Nested radii stay concentric (`inner` inside a `control`).
+- Spacing: vertical stacks of fields use `gap-stack` (16px); a row's horizontal `gap-2` stays. `LayoutBottomSheet` already spaces its slot: pass fields as direct children (`<template v-if>`, no `flex flex-col gap-…` wrapper).
