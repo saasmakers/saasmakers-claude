@@ -57,4 +57,5 @@
 - Commit inside the devcontainer: the `commit-msg` hook runs commitlint with `pnpm`. It has no git identity, so pass the host one (`git config user.name` / `user.email`): `git -c user.name=… -c user.email=… commit`, or `-e GIT_AUTHOR_NAME -e GIT_AUTHOR_EMAIL -e GIT_COMMITTER_NAME -e GIT_COMMITTER_EMAIL` to `docker exec` for tools that commit by themselves.
 - Push from the host: the devcontainer has no SSH access to GitHub. Run the `pre-push` checks (`lefthook.yml`) in the devcontainer first, then `LEFTHOOK=0 git push`.
 - Allowed scopes: `scope-enum` rule in `@saasmakers/config` (`commitlint.js` export).
+- Commit messages: header up to 200 characters; body and footer lines up to 100 (`config-conventional` default), so wrap the body.
 - To publish a package, read `rules/publishing.md` first.
