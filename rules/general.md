@@ -36,6 +36,13 @@
 - **Cross-repo ops: sequential only.** Run `pnpm install`, `git push`, etc. one turborepo at a time — never in parallel (port conflicts, `ENOMEM`, flaky lockfiles).
 - Claude rules live in the `saasmakers-claude` repo at the workspace root. Edit them there, never in a repo's `.claude/` folder: those are submodule checkouts of it, updated by bumping the submodule.
 
+### Dev servers
+
+- Before testing, check that the API and web answer (`curl` their ports: `NUXT_PUBLIC_SITE_URL` in `apps/web/.env`, `PORT` in `apps/api/.env`). If they do, use them as they are.
+- If not, restart with the repo's root `pnpm dev` in the devcontainer, detached with its log in `/tmp`: `docker exec -d -w /workspaces/projects/<repo> projects-devcontainer-1 sh -c 'pnpm dev > /tmp/<repo>-dev.log 2>&1'`. Its `dev:kill` (`saasmakers-dev-kill <ports>`, from `@saasmakers/config`) first stops every dev process of the repo and whatever holds its ports, Cursor terminals included.
+- Never start `node ace serve`, `nuxi dev` or an app's `pnpm dev` alongside: `--watch` watchers outlive a port kill, respawn servers on each change and fight for the port.
+- Say in the reply when a dev server was (re)started, and where its log is.
+
 ### Browser testing
 
 - Every project uses the same local test account, `test@claude.ai`, created by the development-only seeder `apps/api/database/seeders/00_UserSeeder.ts` (password in the seeder). Sign in with it on the local web app only (`NUXT_PUBLIC_SITE_URL` in `apps/web/.env`), never on staging or production.
