@@ -48,6 +48,7 @@
 - Every project uses the same local test account, `test@claude.ai`, created by the development-only seeder `apps/api/database/seeders/00_UserSeeder.ts` (password in the seeder). Sign in with it on the local web app only (`NUXT_PUBLIC_SITE_URL` in `apps/web/.env`), never on staging or production.
 - If the account is missing, run `node ace db:seed --files database/seeders/00_UserSeeder.ts` in `apps/api` inside the devcontainer.
 - Local `.env` files use Cloudflare's Turnstile test keys, so the captcha passes on its own.
+- Screenshots for the user: clip them to the reviewed element, then open the final ones in Preview on the host, in one command (`open -a Preview <files>`). Read one yourself only to check something: images cost tokens.
 
 ### Mobile builds
 
